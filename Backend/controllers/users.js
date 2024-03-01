@@ -25,16 +25,24 @@ async function login(req, res, next){
     if (!email || !password) {
         next(new Error("Invalid email or password"));
       }
-    let user = User.findOne(email);
+    let user = await User.findOne(email);
     if (!user)return next(new Error('User doesnot exit. Please register'))
 
-    let isPasswordMismatched = user.comparePassword(password);
+    let isPasswordMismatched = await user.comparePassword(password);
     if (!isPasswordMismatched) return new Error('Password is incorrect');
-      
+
     sendToken(user, 200, res)
 }
 
-
+ function logout(req, res, next){
+    let token = req.cookies.token;
+    
+    if (token){
+        res.clearCookie('token')
+    }
+    res.status(200).json({message: 'Log out successfuly',  success: true,})
+    
+}
 module.exports = {
-    registerUser
+    registerUser, login, logout
 }
