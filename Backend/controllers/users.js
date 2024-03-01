@@ -4,7 +4,8 @@ const sendToken = require('../utilities/sendToken')
 async function registerUser(req, res, next){
     let {firstName, lastName, password, confirm, email}= req.body;
 
-    if (password !== confirm) return next(new Error("Password should match the confirm password"));
+    if (req.body.password !== req.body.confirmPassword) return next(new Error("Password should match the confirm password"));
+    
     delete this.confirm;
 
     let user = await User.create({firstName, lastName, password, email})
@@ -36,13 +37,26 @@ async function login(req, res, next){
 
  function logout(req, res, next){
     let token = req.cookies.token;
-    
     if (token){
         res.clearCookie('token')
     }
     res.status(200).json({message: 'Log out successfuly',  success: true,})
     
 }
+ async function forgotPassword(req, res, next){
+    let {email} = req.body;
+    let user = await User.findOne(email);
+    if (!user)return next(new Error('User doesnot exit. Please register'))
+
+    let resetToken = await user.resetPasswordToken();
+
+    await user.save({ validateBeforeSave: false });
+
+    let reseturl = `${process.env.FRONTEND_URL}/v1/user/resetPassword/${resetToken}`
+
+
+
+}
 module.exports = {
-    registerUser, login, logout
+    registerUser, login, logout, forgotPassword
 }

@@ -31,8 +31,8 @@ const userSchema = new Schema({
         required: true,
         trim: true
     },
-    resetPasswordToken: String,
-    expiredPssword: String
+    resetPassword: String,
+    resetExpired: String,
 })
 
 userSchema.pre('save', function(next){
@@ -49,6 +49,15 @@ userSchema.methods.getJWTToken = ()=>{
 userSchema.methods.comparePassword = function(enteredPassword) {
     return bcrypt.compare(enteredPassword, this.password);
 };
+userSchema.methods.resetPasswordToken = function (){
+    // encrypting the token and making hexidecimal
+    let token = crypto.randomBytes(20).toString('hex');
+    // decrypting and passing it to the resetPassword as the token
+     this.resetPassword = crypto.createHash('sha256').update(token).digest('hex')
+    //    the token expires in 10 min
+    this.resetExpired = Date.now() * 10 * 60 * 1000;
+    return token
+}
 
 
 module.exports = mongoose.model('User', userSchema)
