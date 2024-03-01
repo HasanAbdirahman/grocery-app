@@ -22,8 +22,16 @@ async function registerUser(req, res, next){
 
 async function login(req, res, next){
     let {email, password} = req.body
+    if (!email || !password) {
+        next(new Error("Invalid email or password"));
+      }
+    let user = User.findOne(email);
+    if (!user)return next(new Error('User doesnot exit. Please register'))
 
-    let user = User
+    let isPasswordMismatched = user.comparePassword(password);
+    if (!isPasswordMismatched) return new Error('Password is incorrect');
+      
+    sendToken(user, 200, res)
 }
 
 
