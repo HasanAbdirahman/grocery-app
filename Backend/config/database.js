@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://0.0.0.0:27017/grocery-app', {});
+mongoose.connect(process.env.MONGO_URL, {});
 
 const db = mongoose.connection;
 

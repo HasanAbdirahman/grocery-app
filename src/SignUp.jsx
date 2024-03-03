@@ -1,4 +1,6 @@
 import { useState } from "react"
+import axios from "axios"
+
 
 export default function SignUp(){
     const [forms, setForms]= useState({
@@ -12,8 +14,14 @@ export default function SignUp(){
         setForms({  ...forms,
             [e.target.name]: e.target.value})
     }
-    function handleSubmit(e){
+    const handleSubmit = async (e)=>{
         e.preventDefault();
+        try {
+            let result =  await axios.post('/v1/user/signup');
+            setForms(result.data)            
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
     }
     return (
         <form onSubmit={handleSubmit}>
@@ -35,7 +43,7 @@ export default function SignUp(){
             </div>
             <div>
                 <label htmlFor="confirm">Confirm</label>
-                <input type='text' id="confirm" name='confirm' required onChange={handleChange}/>
+                <input type='text' id="confirm" name='confirm' required onChange={handleChange}value={forms.confirm}/>
             </div>
            <button type="submit">Submit</button>
         </form>
