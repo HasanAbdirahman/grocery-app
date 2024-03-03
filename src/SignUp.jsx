@@ -7,7 +7,7 @@ export default function SignUp(){
         firstName: "",
         lastName: '',
         email: '',
-        passowrd:'',
+        password:'',
         confirm: ''
     })
     function handleChange(e){
@@ -17,34 +17,37 @@ export default function SignUp(){
     const handleSubmit = async (e)=>{
         e.preventDefault();
         try {
-            let result =  await axios.post('/v1/user/signup');
-            setForms(result.data)            
+            let result =  await axios.post('/v1/user/signup', forms);
+            console.log(result.data); 
+            setForms(prevState => ({
+                ...prevState,
+                firstName: "", 
+                lastName: "",  
+                email: "",     
+                password: "",  
+                confirm: ""    
+              }));         
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     }
     return (
         <form onSubmit={handleSubmit}>
-            <div>
+           
                 <label htmlFor="firstName">First Name</label>
                 <input type='text' id="firstName" name="firstName" required onChange={handleChange} value={forms.firstName}/>
-            </div>
-            <div>
+           
                 <label htmlFor="lastNmae">Lat Name</label>
                 <input type='text' id="lastNmae"  name="lastName"required onChange={handleChange} value={forms.lastName}/>
-            </div>
-            <div>
+           
                 <label htmlFor="email">Email</label>
                 <input type='email' id="email"  name="email" required onChange={handleChange}value={forms.email}/>
-            </div>
-            <div>
+           
                 <label htmlFor="password">Password</label>
-                <input type='password' id="password" name='password' required onChange={handleChange} value={forms.password}/>
-            </div>
-            <div>
+                <input type='password' id="password" name="password" required onChange={handleChange} value={forms.password}/>
+           
                 <label htmlFor="confirm">Confirm</label>
-                <input type='text' id="confirm" name='confirm' required onChange={handleChange}value={forms.confirm}/>
-            </div>
+                <input type='password' id="confirm" name="confirm" required onChange={handleChange}value={forms.confirm}/>
            <button type="submit">Submit</button>
         </form>
     )

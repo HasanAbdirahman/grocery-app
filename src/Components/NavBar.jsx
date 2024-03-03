@@ -20,10 +20,10 @@ export default function NavBar() {
         <Link to="/allProducts" className="links">
           All Products
         </Link>
-        <Link to="" className="links">
+        <Link to="/login" className="links">
           Login
         </Link>
-        <Link to="" className="links">
+        <Link to="/signup" className="links">
           Sign Up
         </Link>
       </div>

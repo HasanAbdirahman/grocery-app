@@ -102,6 +102,3 @@ async function resetPassword(req, res, next){
 module.exports = {
     registerUser, login, logout, forgotPassword, resetPassword
 }
-
-res.cookies(token, null )
-
