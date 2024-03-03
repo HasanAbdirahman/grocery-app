@@ -5,6 +5,8 @@ import Cart from './Cart';
 import { CartProvider } from './CartContext';
 import AllProducts from './Components/AllProducts';
 import Detail from './Components/Detail';
+import Login from './Login';
+import SignUp from './SignUp';
 
 export default function App() {
   return (
@@ -16,6 +18,8 @@ export default function App() {
             <Route path="/product/:id" element={<Detail />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/allProducts" element={<AllProducts />} />
+            <Route path="/login" element={<Login />} />
+            <Route path='/signup' element={<SignUp />} />
           </Routes>
         </div>
       </CartProvider>
