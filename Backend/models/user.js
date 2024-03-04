@@ -35,12 +35,12 @@ const userSchema = new Schema({
     resetExpired: String,
 })
 
-userSchema.pre('save', function(next){
+userSchema.pre('save', async function(next){
     if (!this.isModified(this.password)) return next();
-    this.password = bcrypt.hash(this.password, 10)
+    this.password = await bcrypt.hash(this.password, 10)
 })
 
-userSchema.methods.getJWTToken = ()=>{
+userSchema.methods.getJWTToken = function(){
     return jwt.sign({
         id: this._id, expire: process.env.EXPIRED_IN
     },secret= process.env.SECRET)
@@ -56,7 +56,7 @@ userSchema.methods.resetPasswordToken = function (){
      this.resetPassword = crypto.createHash('sha256').update(token).digest('hex')
     //    the token expires in 10 min
     this.resetExpired = Date.now() * 10 * 60 * 1000;
-    return token
+    return this.resetPassword
 }
 
 

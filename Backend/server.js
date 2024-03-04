@@ -2,20 +2,29 @@ const express = require('express');
 const path= require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan')
+const cors = require('cors')
 const app = express();
 
 // database connection
 require("dotenv").config();
 require("./config/database");
 
+
 // middlewares
+app.use(cors())
 app.use(logger('dev')) // used in logging
 app.use(express.json());
 app.use(cookieParser());
 
-// route path
-app.use('/v1/user', require("./routes/users"))
+app.use(cors({
+    origin: 'http://localhost:5174', // Allow requests from this origin
+    credentials: true // Enable cookies and authorization headers
+  }));
+  
+const userRouter = require('./routes/users')
 
+// route path
+app.set('/v1/user', userRouter)
 
 // listen port
 let PORT = process.env.PORT || 3000;
