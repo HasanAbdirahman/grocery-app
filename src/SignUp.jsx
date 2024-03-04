@@ -10,27 +10,44 @@ export default function SignUp(){
         password:'',
         confirm: ''
     })
+    const [error, setError] = useState('')
     function handleChange(e){
         setForms({  ...forms,
             [e.target.name]: e.target.value})
     }
-    const handleSubmit = async (e)=>{
-        e.preventDefault();
+    // const handleSubmit = async (e)=>{
+    //     e.preventDefault();
+    //     try {
+    //         let result =  await axios.post('/v1/user/signup', forms);
+    //         console.log(result.data); 
+    //         setForms(prevState => ({
+    //             ...prevState,
+    //             firstName: "", 
+    //             lastName: "",  
+    //             email: "",     
+    //             password: "",  
+    //             confirm: ""    
+    //           }));         
+    //     } catch (error) {
+    //         console.error('Error fetching data:', error);
+    //     }
+    // }
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+       
         try {
-            let result =  await axios.post('/v1/user/signup', forms);
-            console.log(result.data); 
-            setForms(prevState => ({
-                ...prevState,
-                firstName: "", 
-                lastName: "",  
-                email: "",     
-                password: "",  
-                confirm: ""    
-              }));         
+          const response = await axios.post('/v1/user/signup', {
+            email: forms.email,
+            password: forms.password,
+            confiem: forms.confirm, firstName: forms.firstName, lastName: forms.lastName,
+            
+          });
+    
+          // Handle successful login here, such as setting authentication token, redirecting, etc.
         } catch (error) {
-            console.error('Error fetching data:', error);
+          setError(error.response.data.message || 'An error occurred');
         }
-    }
+      };
     return (
         <form onSubmit={handleSubmit}>
            

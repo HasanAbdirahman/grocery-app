@@ -1,8 +1,7 @@
 const express = require('express');
 const path= require('path');
 const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser')
-
+const logger = require('morgan')
 const app = express();
 
 // database connection
@@ -10,12 +9,12 @@ require("dotenv").config();
 require("./config/database");
 
 // middlewares
+app.use(logger('dev')) // used in logging
 app.use(express.json());
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 // route path
-app.set('/v1/user', require("./routes/users"))
+app.use('/v1/user', require("./routes/users"))
 
 
 // listen port
