@@ -22,9 +22,11 @@ app.use(cors({
   }));
   
 const userRouter = require('./routes/users')
+const productRouter = require('./routes/products')
 
 // route path
 app.set('/v1/user', userRouter)
+app.set('/v1', productRouter)
 
 // listen port
 let PORT = process.env.PORT || 3000;

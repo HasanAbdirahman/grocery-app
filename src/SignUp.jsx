@@ -17,6 +17,10 @@ export default function SignUp() {
   async function handleSubmit(event) {
     event.preventDefault();
     // check if the confirm and password is the same and then post data
+    if (forms.password !== forms.confirm) {
+      setError("Passwords do not match");
+      return;
+    }
     try {
       let result = await fetch('/v1/user/signup', {
         method: 'POST',
@@ -43,8 +47,8 @@ export default function SignUp() {
       <label htmlFor="firstName">First Name</label>
       <input type='text' id="firstName" name="firstName" required onChange={handleChange} value={forms.firstName} />
 
-      <label htmlFor="lastNmae">Last Name</label>
-      <input type='text' id="lastNmae" name="lastName" required onChange={handleChange} value={forms.lastName} />
+      <label htmlFor="lastName">Last Name</label>
+      <input type='text' id="lastName" name="lastName" required onChange={handleChange} value={forms.lastName} />
 
       <label htmlFor="email">Email</label>
       <input type='email' id="email" name="email" required onChange={handleChange} value={forms.email} />

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
@@ -11,19 +10,20 @@ const LoginPage = () => {
     // transfering data to the backend
     try {
       const response = await fetch('/v1/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
         body: JSON.stringify({
           username, password
         }),
-        method: 'POST',
-        header: {
-          'Content-Type': 'application/json'
-        }
       })
-      let data = response.json();
+      let data = await response.json();
       console.log(data);
       // Handle successful login here, such as setting authentication token, redirecting, etc.
     } catch (error) {
-      setError(error|| 'An error occurred in the login');
+      setError(error.message || 'An error occurred in the login');
     }
   };
 
