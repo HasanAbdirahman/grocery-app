@@ -1,5 +1,6 @@
 const Product = require('../models/product');
 
+// product side 
 async function getAllProducts(req, res, next){
     try{
         let products = await Product.find({});
@@ -21,6 +22,24 @@ async function detailProduct(req, res, next){
         return next(error)
     }
 }
+async function create(req, res, next){
+    try {
+        let product = Product.create({
+            name: req.body.name,
+            price: req.body.price,
+            description: req.body.description,
+            category: req.body.category
+        })
+        if (!product){
+            return res.status(404).json({success:false, error:'Product not created'})
+        }
+        res.status(200).json({success: true, product})
+    } catch (error) {
+        next(error)
+    }
+}
+
+
 async function editProduct(req, res, next){
     try {
         let product = await Product.findByIdAndUpdate(req.params.id, {
@@ -51,6 +70,8 @@ async function deleteProduct(req, res, next){
     }
 }
 
+
+
 module.exports={
-    getAllProducts, detailProduct,editProduct,deleteProduct
+    getAllProducts, detailProduct,editProduct,deleteProduct,create,getAllReviews
 }

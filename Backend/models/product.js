@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const User = require('../models/user');
 
 const productSchema = new Schema({
     name: {
@@ -59,6 +60,7 @@ const productSchema = new Schema({
           message: "Please select the correct category for product",
         },
       },
+    
     
 }, {timestamps: true})
 
