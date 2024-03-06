@@ -59,16 +59,7 @@ const productSchema = new Schema({
           message: "Please select the correct category for product",
         },
       },
-      seller: {
-        type: String,
-        required: [true, "Please enter the seller of this product"],
-      },
-      stock: {
-        type: Number,
-        required: [true, "Please enter the stock of this product"],
-        maxLength: [5, "Product cannot exceed 5 characters"],
-        default: 0,
-      },
+    
+}, {timestamps: true})
 
-
-})
+module.exports = mongoose.model('Product', productSchema)

@@ -3,6 +3,7 @@ const path= require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan')
 const cors = require('cors')
+const errorHandlingMiddleware = require('./utilities/errorHandlingMiddleware')
 const app = express();
 
 // database connection
@@ -15,6 +16,7 @@ app.use(cors())
 app.use(logger('dev')) // used in logging
 app.use(express.json());
 app.use(cookieParser());
+app.use(errorHandlingMiddleware);
 
 app.use(cors({
     origin: 'http://localhost:5174', // Allow requests from this origin
@@ -22,11 +24,13 @@ app.use(cors({
   }));
   
 const userRouter = require('./routes/users')
-const productRouter = require('./routes/products')
+const productRouter = require('./routes/products');
+const reviewRouter = require('./routes/reviews')
 
 // route path
 app.set('/v1/user', userRouter)
 app.set('/v1', productRouter)
+app.set('/v1', reviewRouter)
 
 // listen port
 let PORT = process.env.PORT || 3000;
