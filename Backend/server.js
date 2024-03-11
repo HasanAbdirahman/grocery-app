@@ -25,10 +25,12 @@ app.use(cors({
   
 const userRouter = require('./routes/users')
 const productRouter = require('./routes/products');
+const orderRouter = require('./routes/orders');
 
 // route path
 app.set('/v1/user', userRouter)
 app.set('/v1', productRouter)
+app.set('/v1', orderRouter)
 
 
 // listen port

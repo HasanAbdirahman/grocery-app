@@ -7,9 +7,9 @@ export default function Cart() {
   const {
     addToCart,
     itemsInCart,
+    setItemsInCart,
     specificItemCount,
-    removeFromCart,
-    numberOfItemsInCart,
+    removeFromCart
   } = useContext(CartContext);
   const navigate = useNavigate();
 
@@ -18,12 +18,26 @@ export default function Cart() {
       return navigate('/');
     }
   }
+
+  async function handlePlaceOrder(){
+    let result = await fetch('/v1/order/create');
+    if (!result.ok) return 'Order not success';
+    result.json();
+    setItemsInCart([]);
+    setItemsInCart([])
+  
+  }
+
   useEffect(() => {
     backToHome();
+
   }, [itemsInCart]);
+
+
   return (
     <>
       <NavBar />
+      <div>
       <div className="cart-container">
         {itemsInCart.length === 0
           ? backToHome
@@ -63,6 +77,10 @@ export default function Cart() {
               </div>
             ))}
       </div>
+      </div>
+      <section>
+      <button onClick={handlePlaceOrder}>Place an Order</button>
+      </section>
     </>
   );
 }

@@ -9,7 +9,7 @@ export function CartProvider({ children }) {
   // this is a state where I want to store the ID's of the product then check if the ID is in there
   const [itemID, setItemID] = useState([]);
 
-  // this new state is where i will know the pecific amount of item in that type of product which is going to be array of object and am going to use with their ID to differentiate the different types
+  // this new state is where i will know the specific amount of item in that type of product which is going to be array of object and am going to use with their ID to differentiate the different types
   const [specificItemCount, setSpecificItemCount] = useState({});
   const navigate = useNavigate();
 
@@ -43,9 +43,6 @@ export function CartProvider({ children }) {
     }
   };
 
-  // numberOfItemsInCart itemsInCart itemID  specificItemCount
-
-  //
   function removeFromCart(id) {
     if (numberOfItemsInCart === 1) {
       navigate('/');
