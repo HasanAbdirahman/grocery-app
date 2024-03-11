@@ -54,4 +54,4 @@ async function deleteReview(req, res, next){
         next(error)
     }
 }
-module.exports={specificReviews,getAllReviews,creeateReview,editReview,deleteReview}
+module.exports={getAllReviews,creeateReview,editReview,deleteReview}

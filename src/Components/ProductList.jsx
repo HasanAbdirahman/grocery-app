@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import './Components.css';
 import { useEffect, useState } from 'react';
-import user from '../../Backend/models/user';
 
 export default function ProductList({ eachData }) {
   const [reviews, setReviews] = useState(null) // this is where reviews will be stored when  fetched
@@ -17,19 +16,19 @@ function handleDescriptionChange(e){
   setDescription(()=> e.target.value)
 }
 
-useEffect(()=>{
+// useEffect(()=>{
 
-  async function fetchData(){
-    const response = await fetch('/v1/product/:productId/reviews');
-    if (!response.ok){
-      throw new Error('Reviews is not received')
-    }
-    let data = result.json();
-    setReviews([...data])
-    setLoading(false)
-  }
-fetchData()
-})
+//   async function fetchData(){
+//     const response = await fetch('/v1/product/:productId/reviews');
+//     if (!response.ok){
+//       throw new Error('Reviews is not received')
+//     }
+//     let data = result.json();
+//     setReviews([...data])
+//     setLoading(false)
+//   }
+// fetchData()
+// })
 
   return (
     <>
@@ -47,7 +46,7 @@ fetchData()
         <div className="product-category">{eachData.category}</div>
       </div>
     </div>
-    <section id='reviews-form-inputing'>
+    {/* <section id='reviews-form-inputing'>
       <h1>Reviews</h1>
       <form>
         <label htmlFor='rating'>
@@ -68,11 +67,11 @@ fetchData()
         <div>
           <p>{user.firstName} {user.lastName}</p>
           <div>
-            <
+            
           </div>
         </div>
       })}
-    </section>
+    </section> */}
     </>
   );
 }

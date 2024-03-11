@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const User = require('../models/user');
-
+const reviewsSchema=require('./reviews')
 const productSchema = new Schema({
     name: {
         type: String,
@@ -60,8 +60,7 @@ const productSchema = new Schema({
           message: "Please select the correct category for product",
         },
       },
-    
-    
+      reviews: [reviewsSchema]
 }, {timestamps: true})
 
 module.exports = mongoose.model('Product', productSchema)

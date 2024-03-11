@@ -73,5 +73,5 @@ async function deleteProduct(req, res, next){
 
 
 module.exports={
-    getAllProducts, detailProduct,editProduct,deleteProduct,create,getAllReviews
+    getAllProducts, detailProduct,editProduct,deleteProduct,create
 }

@@ -5,9 +5,9 @@ function errorHandlingMiddleware(err, req, res, next){
     res.status(statusCode).json({
         success:false,
         error: {
-            message: err.mess
+            message: err.message
         }
     })
 }
 
-module.exports.default = errorHandlingMiddleware
+module.exports = errorHandlingMiddleware
