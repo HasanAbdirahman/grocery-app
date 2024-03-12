@@ -74,7 +74,25 @@ async function editOrder(req, res, next){
     }
 }
 
-
+async function deleteOrder(req, res, next){
+//    if orderItems and shippingAddress had their own models you will had delete each
+//  separately since now it is just one document u delete once
+    try {
+        if (!req.params.deleteId){
+            res.status(400).json({success: false, message: 'Order id is required'})
+        }
+        
+        let order = Order.findByIdAndDelete(req.params.deleteId);
+        
+        if (!order){
+            return res.status(404).json({success: false, error: 'Failed to delete Order'})
+        }
+      
+        res.status(200).json({success: true, message: 'Order and associated items deleted successfully' })
+    } catch (error) {
+        next(error)
+    }
+}
 module.exports = {
-    getAllOrders,createOrder,editOrder
+    getAllOrders,createOrder,editOrder,deleteOrder
 }
