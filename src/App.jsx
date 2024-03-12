@@ -7,6 +7,7 @@ import AllProducts from './Components/AllProducts';
 import Detail from './Components/Detail';
 import Login from './Login';
 import SignUp from './SignUp';
+import Order from './Order';
 
 export default function App() {
   return (
@@ -14,7 +15,7 @@ export default function App() {
       <CartProvider>
         <div className="container">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Order />} />
             <Route path="/product/:id" element={<Detail />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/allProducts" element={<AllProducts />} />
